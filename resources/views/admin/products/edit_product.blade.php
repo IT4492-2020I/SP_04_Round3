@@ -83,7 +83,7 @@
                         <!-- Long description Textarea -->
                         <div class="col-md-4 mb-3">
                             <label for="long_description">Long description</label>
-                            <textarea class="form-control" id="long_description" name="long_description" placeholder={{$pro->long_description}}></textarea>
+                            <textarea class="form-control" id="long_description" name="long_description" placeholder={{$pro->long_description}} required=""></textarea>
                         </div>
                         <!-- Input vote -->
                         <div class="col-md-4 mb-3">

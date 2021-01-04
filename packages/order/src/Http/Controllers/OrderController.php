@@ -69,18 +69,12 @@ class OrderController extends Controller
     }
 
     public function checkout(Request $request){
-        $meta_desc = "Đăng nhập thanh toán";
-        $meta_keywords = "Đăng nhập thanh toán";
-        $meta_title = "Đăng nhập thanh toán";
         $url_canonical = $request->url();
 
         $brand_product = DB::table('brands')->orderby('brand_id', 'desc')->get();
 
         return view('checkout.show_checkout')
             ->with('brand_product', $brand_product)
-            ->with('meta_desc', $meta_desc)
-            ->with('meta_keywords', $meta_keywords)
-            ->with('meta_title', $meta_title)
             ->with('url_canonical', $url_canonical);
     }
 
@@ -99,16 +93,11 @@ class OrderController extends Controller
     }
 
     public function payment(Request $request){
-        $meta_desc = "Đăng nhập thanh toán";
-        $meta_keywords = "Đăng nhập thanh toán";
-        $meta_title = "Đăng nhập thanh toán";
+
         $url_canonical = $request->url();
         $brand_product = DB::table('brands')->orderby('brand_id', 'desc')->get();
 
         return view('checkout.payment')->with('brand_product', $brand_product)
-            ->with('meta_desc', $meta_desc)
-            ->with('meta_keywords', $meta_keywords)
-            ->with('meta_title', $meta_title)
             ->with('url_canonical', $url_canonical);
     }
 
@@ -135,7 +124,7 @@ class OrderController extends Controller
             $order_data['customer_id'] = $user_id;
             $order_data['payment_type_id'] = $payment_id;
             $order_data['shipping_type_id'] = Session::get('shipping_id');
-
+            $order_data['total_prices'] = 0;
             //Nếu gỉỏ hàng rỗng
             if (Session::has('Cart') == null) {
                 Session::put('message', 'Sorry, The cart is empty! Please order...');
@@ -143,7 +132,7 @@ class OrderController extends Controller
             } //Giỏ hàng đã có sản phẩm được order
             else {
                 foreach (Session::get('Cart')->products as $product) {
-                    $order_data['total_prices'] = $product['productInfo']->price;
+                    $order_data['total_prices'] += $product['productInfo']->price*$product['quanty'];
                 }
                 $order_data['order_status'] = 1;
                 $order_data['order_no'] = rand(1, 100000);

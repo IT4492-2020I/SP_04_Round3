@@ -13,7 +13,7 @@ class HomeController extends Controller
     public function index()
     {
         $brand_product = DB::table('brands')->orderby('brand_id', 'desc')->get();
-        $all_product = DB::table('products')->where('status', 1)->orderby('id', 'desc')->limit(4)->get();
+        $all_product = DB::table('products')->where('status', 1)->orderby('id', 'desc')->get();
         return view('home')->with('brand_product', $brand_product)->with('products', $all_product);
     }
 }
