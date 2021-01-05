@@ -25,6 +25,11 @@ Run script to make table in database
 ```$ php artisan db:seed```
 or
 ```$ php artisan db:seed --class <nameTableSeeder```
+eg
+```$ php artisan db:seed --class UserTableSeeder```
+```$ php artisan db:seed --class AdminTableSeeder```
+```$ php artisan db:seed --class ProductTableSeeder```
+```$ php artisan db:seed --class BrandTableSeeder```
 
 
 
